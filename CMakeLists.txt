@@ -8,15 +8,13 @@ endif( CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" )
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/CmakeModules/)
 
-find_package(OpenCV REQUIRED)
-#find_package(Zlib REQUIRED)
+find_package(OpenCV REQUIRED )
 
 file(GLOB_RECURSE SOURCE_FILES  ${PROJECT_SOURCE_DIR}/src/*.c* ${PROJECT_SOURCE_DIR}/ThirdParty/*.c*)
 file(GLOB_RECURSE HEADERS  ${PROJECT_SOURCE_DIR}/include/*.h* ${PROJECT_SOURCE_DIR}/ThirdParty/*.h*)
 
 source_group("Include" FILES ${HEADERS}) 
 source_group("Src" FILES ${SOURCE_FILES}) 
-#set(SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/include/*.h)
 
 message(${SOURCE_FILES})
 add_executable(basicoption ${SOURCE_FILES} ${HEADERS} )

@@ -1,3 +1,4 @@
+
 #ifndef BASIC_OP_AFFINE_GENERATOR_H
 #define BASIC_OP_AFFINE_GENERATOR_H
 #include <math.h>

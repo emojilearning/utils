@@ -1,5 +1,5 @@
 #include <opencv2/opencv.hpp>
-#include <utils.h>
+#include <vision_utils.h>
 #include <random>
 #include <affinegenerator.h>
 
@@ -123,22 +123,3 @@ Mat AffineGenerator::Generate(Mat img)
 	return  GenAffine(img, theta, phi, lambda1, lambda2);
 }
 
-int i = 0;
-void show(Mat p)
-{
-	imshow("null", p);
-	i++;
-	waitKey(0);
-}
-
-int main()
-{
-	Mat img = cv::imread("../resources/img.jpg");
-	auto patch = GetPatch(img, { 32,32 });
-	auto dst = GenAffine(img,0, 2*M_PI/3, 1.3, 1, {img.cols*2,img.rows});
-	SlidingWindows(img, { 64,64 }, { 16,16 },show);
-	imshow("null", dst);
-	waitKey(0);
-
-	return 0;
-}
