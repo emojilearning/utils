@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.6)
+project(basicoption)
+
+if( CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" )
+	set(CMAKE_BUILD_TYPE Release)  
+endif( CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo" )
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/CmakeModules/)
+
+find_package(OpenCV REQUIRED)
+#find_package(Zlib REQUIRED)
+
+file(GLOB_RECURSE SOURCE_FILES  ${PROJECT_SOURCE_DIR}/src/*.c* ${PROJECT_SOURCE_DIR}/ThirdParty/*.c*)
+file(GLOB_RECURSE HEADERS  ${PROJECT_SOURCE_DIR}/include/*.h* ${PROJECT_SOURCE_DIR}/ThirdParty/*.h*)
+
+source_group("Include" FILES ${HEADERS}) 
+source_group("Src" FILES ${SOURCE_FILES}) 
+#set(SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/include/*.h)
+
+message(${SOURCE_FILES})
+add_executable(basicoption ${SOURCE_FILES} ${HEADERS} )
+
+INCLUDE_DIRECTORIES(
+  ${OpenCV_INCLUDE_DIRS}
+        #${ZLIB_INCLUDE_DIR}
+  ${PROJECT_SOURCE_DIR}/include/
+  ${PROJECT_SOURCE_DIR}/ThirdParty
+)
+SET_TARGET_PROPERTIES(basicoption PROPERTIES    RUNTIME_OUTPUT_DIRECTORY  "${PROJECT_SOURCE_DIR}/bin")
+
+ADD_DEFINITIONS(/D_USE_MATH_DEFINES)
+
+#LIST(APPEND LINK_LIBS ${PROJECT_SOURCE_DIR}/DBoW3001d.lib ${OpenCV_LIBS})
+LIST(APPEND LINK_LIBS ${OpenCV_LIBS})
+#TARGET_LINK_LIBRARIES(basicoption ${ZLIB_LIBRARY} ${LINK_LIBS})
+TARGET_LINK_LIBRARIES(basicoption  ${LINK_LIBS})
