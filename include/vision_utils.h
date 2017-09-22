@@ -3,11 +3,13 @@
 
 #include <opencv2/opencv.hpp>
 #include <functional>
-#ifndef BASIC_OP_UTILS
-#define BASIC_OP_UTILS
+#ifndef BASIC_OP_VISION_UTILS
+#define BASIC_OP_VISION_UTILS
 
 //note : it's reference to origin image
 cv::Mat GetPatch(const cv::Mat& img, const cv::Point2d& center, int r = 16);
 cv::Mat SlidingWindows(const cv::Mat& img, cv::Size size, cv::Size step,std::function<void(cv::Mat)> f);
+cv::Mat convertToGray(const cv::Mat& img);
+
 
 #endif // !BASIC_OP_UTILS
