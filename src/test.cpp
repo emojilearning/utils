@@ -17,11 +17,8 @@ int main()
 {
     Mat img = cv::imread("../resources/img.jpg");
     auto patch = GetPatch(img, { 32,32 });
+    imshow("null",padding(convertToGray(img) ,{32,32}));
+    waitKey(0);
     //SlidingWindows(img, { 64,64 }, { 16,16 },show);
-    AffineGenerator gr;
-    while (true) {
-        imshow("null", gr.Generate(AddGaussiaNoise(convertToGray(img),64 )));
-        waitKey(0);
-    }
     return 0;
 }

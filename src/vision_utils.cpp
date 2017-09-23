@@ -30,7 +30,7 @@ Mat GetPatch(const Mat& img, const Point2d& center, int r)
 	return img.rowRange(center.y - r, center.y + r).colRange(center.x - r, center.x + r);
 }
 
-Mat SlidingWindows(const Mat& img,Size size, Size step, std::function<void(cv::Mat)> f)
+void SlidingWindows(const Mat& img,Size size, Size step, std::function<void(cv::Mat)> f)
 {
 	for (int j = size.height / 2; j < img.rows - size.height / 2; j += step.height)
 	{
@@ -40,5 +40,12 @@ Mat SlidingWindows(const Mat& img,Size size, Size step, std::function<void(cv::M
 			f(patch);
 		}
 	}
-	return {};
+}
+
+Mat padding(const Mat& img,Size padsize)
+{
+    Size origin = img.size();
+    Mat pad(origin + padsize*2,CV_8U);
+    img.copyTo(pad.colRange(padsize.width,img.cols+padsize.width).rowRange(padsize.height,padsize.height+img.rows));
+    return pad;
 }

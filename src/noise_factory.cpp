@@ -12,7 +12,7 @@ Mat AddWhiteNoise(const Mat& src,int lv )
     static std::default_random_engine noise(rd());
     static std::uniform_int_distribution<> u(-lv, lv);
 
-    for (int i = 0; i < img.elemSize(); ++i) {
+    for (int i = 0; i < img.size().height*img.size().width; ++i) {
         int n = u(noise);
         if(n + img.at<uint8_t>(i)>255)
             img.at<uint8_t>(i) = 255;

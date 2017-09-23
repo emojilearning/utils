@@ -1,3 +1,6 @@
+//Author:emojilearning
+//data:2017.9.22
+
 #ifndef UTILS_NOISE_FACTORY_H
 #define UTILS_NOISE_FACTORY_H
 

@@ -8,8 +8,9 @@
 
 //note : it's reference to origin image
 cv::Mat GetPatch(const cv::Mat& img, const cv::Point2d& center, int r = 16);
-cv::Mat SlidingWindows(const cv::Mat& img, cv::Size size, cv::Size step,std::function<void(cv::Mat)> f);
+void SlidingWindows(const cv::Mat& img, cv::Size size, cv::Size step,std::function<void(cv::Mat)> f);
 cv::Mat convertToGray(const cv::Mat& img);
+cv::Mat padding(const cv::Mat& img,cv::Size padsize);
 
 
 #endif // !BASIC_OP_UTILS
