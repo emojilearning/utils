@@ -107,6 +107,7 @@ double Angle2Radian(double angle)
 	return angle / 180 * M_PI;
 }
 
+
 Mat AffineGenerator::Generate(Mat img)
 {
 	std::random_device rd;
