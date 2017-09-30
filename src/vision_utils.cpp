@@ -6,6 +6,7 @@ using cv::Mat;
 using cv::Point2d;
 using cv::Size;
 using std::function;
+using cv::Rect;
 
 Mat convertToGray(const Mat& img)
 {
@@ -20,15 +21,11 @@ Mat convertToGray(const Mat& img)
 }
 
 Mat GetPatch(const Mat& img, const Point2d& center, const Size& r)
+//return a reference
 {
-	return img.rowRange(center.y - r.height, center.y + r.height).colRange(center.x - r.width, center.x + r.width);
+	return img(Rect(center.y - r.height/2, center.y + r.height/2,r.width,r.width));
 }
 
-
-Mat GetPatch(const Mat& img, const Point2d& center, int r)
-{
-	return img.rowRange(center.y - r, center.y + r).colRange(center.x - r, center.x + r);
-}
 
 void SlidingWindows(const Mat& img,Size size, Size step, std::function<void(cv::Mat)> f)
 {
@@ -45,7 +42,7 @@ void SlidingWindows(const Mat& img,Size size, Size step, std::function<void(cv::
 Mat padding(const Mat& img,Size padsize)
 {
     Size origin = img.size();
-    Mat pad(origin + padsize*2,CV_8U);
+    Mat pad(origin + padsize*2,img.type());
     img.copyTo(pad.colRange(padsize.width,img.cols+padsize.width).rowRange(padsize.height,padsize.height+img.rows));
     return pad;
 }
