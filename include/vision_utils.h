@@ -1,10 +1,11 @@
 //Author:emojilearning
 //data:2017.9.22
 
-#include <opencv2/opencv.hpp>
-#include <functional>
 #ifndef BASIC_OP_VISION_UTILS
 #define BASIC_OP_VISION_UTILS
+#include <opencv2/opencv.hpp>
+#include <functional>
+
 
 //note : it's reference to origin image
 cv::Mat GetPatch(const cv::Mat& img, const cv::Point2d& center, const cv::Size& r = cv::Size{ 32,32 });
