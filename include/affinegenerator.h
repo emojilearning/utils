@@ -13,7 +13,7 @@ public:
 		double minlambda_ = 0.5, double maxlambda_ = 1.5) :mintheta(mintheta_), maxtheta(maxtheta_),
 		minphi(minphi_), maxphi(maxphi_), minlambda(minlambda_), maxlambda(maxlambda_) {}
 
-	cv::Mat Generate(cv::Mat img);
+	cv::Mat Generate(const cv::Mat& img,cv::Mat& H);
 private:
 	double mintheta = 0;
 	double maxtheta = 2 * 3.1415926535;
@@ -24,7 +24,7 @@ private:
 
 };
 
-
+void GenMutiViewImg(const cv::Mat& img,int num);
 #endif // !BASIC_OP_AFFINE_GENERATOR_H
 
 

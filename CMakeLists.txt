@@ -9,7 +9,7 @@ find_package(OpenCV REQUIRED )
 file(GLOB_RECURSE SOURCE_FILES  ${PROJECT_SOURCE_DIR}/src/*.c* ${PROJECT_SOURCE_DIR}/ThirdParty/*.c*)
 file(GLOB_RECURSE HEADERS  ${PROJECT_SOURCE_DIR}/include/*.h* ${PROJECT_SOURCE_DIR}/ThirdParty/*.h*)
 
-source_group("Include" FILES ${HEADERS}) 
+source_group("Include" FILES ${HEADERS})
 source_group("Src" FILES ${SOURCE_FILES}) 
 
 message(${SOURCE_FILES})

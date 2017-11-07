@@ -26,6 +26,12 @@ Mat GetPatch(const Mat& img, const Point2d& center, const Size& r)
 	return img(Rect(center.y - r.height/2, center.y + r.height/2,r.width,r.width));
 }
 
+Mat GetPatch(const Mat& img, const Point2d& lt, const int width,const int height)
+//return a reference
+{
+    return img(Rect(lt.x, lt.y,width, height));
+}
+
 
 void SlidingWindows(const Mat& img,Size size, Size step, std::function<void(cv::Mat)> f)
 {

@@ -2,6 +2,7 @@
 #include <vision_utils.h>
 #include <random>
 #include <affinegenerator.h>
+#include <iostream>
 
 using cv::Mat;
 using cv::imshow;
@@ -10,6 +11,7 @@ using std::cout;
 using cv::Point2d;
 using std::vector;
 using std::pair;
+using std::fstream;
 
 Mat GenRoatationMatrix(double theta)
 {
@@ -66,7 +68,7 @@ Mat GenAffine(Mat input, double theta, double phi, double lambda1,double lambda2
 	return dst;
 }
 
-Mat GenAffine(Mat input, double theta, double phi, double lambda1, double lambda2)
+Mat GenAffine(Mat input, double theta, double phi, double lambda1, double lambda2,Mat& H)
 {
 	int height = input.rows;
 	int width = input.cols;
@@ -98,7 +100,7 @@ Mat GenAffine(Mat input, double theta, double phi, double lambda1, double lambda
 	width = bbox.second.x - bbox.first.x;
 	height = bbox.second.y - bbox.first.y;
 	cv::warpPerspective(input, dst, M, {width,height});
-
+  H = M;
 	return dst;
 }
 
@@ -108,7 +110,7 @@ double Angle2Radian(double angle)
 }
 
 
-Mat AffineGenerator::Generate(Mat img)
+Mat AffineGenerator::Generate(const Mat& img,Mat& H)
 {
 	std::random_device rd;
 	static std::default_random_engine thetae(rd()),phie(rd()),lambdae1(rd()),lambdae2(rd());
@@ -119,6 +121,29 @@ Mat AffineGenerator::Generate(Mat img)
 	double lambda1 = u3(lambdae1);
 	double lambda2 = u4(lambdae2);
 
-	return  GenAffine(img, theta, phi, lambda1, lambda2);
+	return  GenAffine(img, theta, phi, lambda1, lambda2,H);
 }
+
+
+void GenMutiViewImg(const Mat& img,int num)
+{
+  AffineGenerator affg;
+    fstream f;
+    f.open("train_labels.txt",std::ios::out);
+  for(int i=0;i<num;i++)
+  {
+    Mat tempH;
+    Mat temp = affg.Generate(img,tempH);
+    char filename[50];
+    sprintf(filename,"train_%d.jpg",i);
+    imwrite(filename,temp);
+      for (int j = 0; j < 9; ++j) {
+          f<<tempH.at<double>(j)<<" ";
+      }
+      f<<std::endl;
+      std::cout<<i<<std::endl;
+  }
+    f.close();
+}
+
 

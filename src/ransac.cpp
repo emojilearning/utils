@@ -1,13 +1,18 @@
 #include "ransac.hpp"
 #include <random>
 #include <vector>
-using namespace std;
-using namespace cv;
+#include <math.h>
+
+
+using cv::Point;
+using cv::Mat;
 using cv::Point3d;
+using std::vector;
+using cv::Point2d;
 
 double RansacModelEstimator::estimateDeparture(Point3d& p)
 {
-	return fabs(p.dot(theta) / norm(Point2d(theta.x, theta.y)));
+	return std::abs(p.dot(theta) / norm(Point2d(theta.x, theta.y)) *1.0);
 }
 
 void RansacModelEstimator::estimateInliners(vector<int>& mask)
@@ -44,12 +49,12 @@ Mat RansacModelEstimator::estimateParm1(vector<cv::Point3d>& inliner_point)
 }
 
 
-int RansacModelEstimator::iterate(vector<int>& mask)
+int RansacModelEstimator::iterate(std::vector<int>& mask)
 {
 	static std::random_device rd;
 	static std::default_random_engine e(rd());
 	static std::uniform_int_distribution<> u(0, point_set.size() - 1);
-	vector<cv::Point3d> initial_point;
+  std::vector<cv::Point3d> initial_point;
 	int last = -1;
 	for (size_t i = 0; i < 2; i++)
 	{
