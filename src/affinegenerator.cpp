@@ -3,6 +3,7 @@
 #include <random>
 #include <affinegenerator.h>
 #include <iostream>
+#include <embedimg.h>
 
 using cv::Mat;
 using cv::imshow;
@@ -127,22 +128,29 @@ Mat AffineGenerator::Generate(const Mat& img,Mat& H)
 
 void GenMutiViewImg(const Mat& img,int num)
 {
-  AffineGenerator affg;
+	Mat groundTruth = Mat::zeros(480, 640, CV_8UC3);
+	AffineGenerator affg;
     fstream f;
-    f.open("train_labels.txt",std::ios::out);
-  for(int i=0;i<num;i++)
-  {
-    Mat tempH;
-    Mat temp = affg.Generate(img,tempH);
-    char filename[50];
-    sprintf(filename,"train_%d.jpg",i);
-    imwrite(filename,temp);
-      for (int j = 0; j < 9; ++j) {
-          f<<tempH.at<double>(j)<<" ";
-      }
-      f<<std::endl;
-      std::cout<<i<<std::endl;
-  }
+    f.open("../train_data/labels.txt",std::ios::out);
+	for(int i=0;i<num;i++)
+	{
+		Mat tempH;
+		Mat temp = affg.Generate(img,tempH);
+		char filename[50];
+		for (int j = 0; j < 9; ++j) 
+		{
+			f<<tempH.at<double>(j)<<" ";
+		}
+		f<<std::endl;
+		std::cout<<i<<std::endl;
+		int h = temp.rows < 480 ? temp.rows : 480;
+		int w = temp.cols < 640 ? temp.cols : 640;
+		auto patch = GetPatch(temp, { 0,0 }, w, h);
+		sprintf(filename, "../train_data/%d.jpg", i);
+		auto eimg = embed(groundTruth, patch, { 0,0 });
+		cv::imwrite(filename,convertToGray(eimg));
+		std::cout << i << std::endl;
+	}
     f.close();
 }
 
