@@ -1,9 +1,7 @@
 //Author:emojilearning
 //data:2017.9.22
-#ifndef VISION_UTIL_FEATURE_H
+#include "feature.h"
 
-
-#include <feature.h>
 using namespace cv;
 using namespace std;
 void OrbMatchByKnn(Mat& desp_m, Mat& desp_i, vector<DMatch>& matches)
@@ -42,4 +40,3 @@ void MarkMarker(const Mat& left, Mat& out, const Mat& H,  Scalar s)
 	}
 }
 
-#endif // !VISION_UTIL_FEATURE_H

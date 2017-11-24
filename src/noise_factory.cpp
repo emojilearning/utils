@@ -1,6 +1,8 @@
-#include <noise_factory.h>
+#include "noise_factory.h"
+
 #include <random>
 #include <cstdint>
+
 #include <opencv2/opencv.hpp>
 
 using cv::Mat;

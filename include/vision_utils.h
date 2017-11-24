@@ -3,9 +3,8 @@
 
 #ifndef BASIC_OP_VISION_UTILS
 #define BASIC_OP_VISION_UTILS
-#include <opencv2/opencv.hpp>
 #include <functional>
-
+#include <opencv2/opencv.hpp>
 
 //note : it's reference to origin image
 cv::Mat GetPatch(const cv::Mat& img, const cv::Point2d& center, const cv::Size& r = cv::Size{ 32,32 });
@@ -15,5 +14,6 @@ void SlidingWindows(const cv::Mat& img, cv::Size size, cv::Size step,std::functi
 cv::Mat convertToGray(const cv::Mat& img);
 cv::Mat padding(const cv::Mat& img,cv::Size padsize);
 
+cv::Mat embed(cv::Mat src, cv::Mat patch, cv::Point2i pt);
 
 #endif // !BASIC_OP_UTILS

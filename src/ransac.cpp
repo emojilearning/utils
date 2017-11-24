@@ -1,4 +1,5 @@
 #include "ransac.hpp"
+
 #include <random>
 #include <vector>
 #include <math.h>

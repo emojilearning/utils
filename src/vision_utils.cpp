@@ -1,9 +1,12 @@
-#include <vision_utils.h>
-#include <opencv2/opencv.hpp>
+#include "vision_utils.h"
+
 #include <functional>
+
+#include <opencv2/opencv.hpp>
 
 using cv::Mat;
 using cv::Point2d;
+using cv::Point2i;
 using cv::Size;
 using std::function;
 using cv::Rect;
@@ -52,3 +55,13 @@ Mat padding(const Mat& img,Size padsize)
     img.copyTo(pad.colRange(padsize.width,img.cols+padsize.width).rowRange(padsize.height,padsize.height+img.rows));
     return pad;
 }
+
+Mat embed(Mat src, Mat patch, Point2i pt)
+{
+	Mat temp = src.clone();
+	//	Mat imgROI = temp(Rect(pt.x, pt.y, patch.cols, patch.rows));
+	patch.copyTo(temp(Rect(pt.x, pt.y, patch.cols, patch.rows)));
+
+	return temp;
+}
+
